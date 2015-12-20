@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+div#main {
+  padding: 100px 50px;
+}
+
+div#toolbar {
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: right;
+  border-bottom: 1px solid #000;
+}
+
+div#toolbar a {
+  display: inline-block;
+  font-weight: bold;
+  padding: 15px 20px;
+  border-left: 1px solid #000;
+}
+
+div#toolbar a.active:before {
+  content: "✓ ";
+}
+
+div#note {
+  font-size: 100px;
+  text-align: center;
+}
