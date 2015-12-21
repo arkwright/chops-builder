@@ -14,10 +14,6 @@ a {
   color: #000;
 }
 
-div#main {
-  padding: 100px 50px;
-}
-
 div#toolbar {
   left: 0;
   position: fixed;
@@ -40,5 +36,180 @@ div#toolbar a.active:before {
 
 div#note {
   font-size: 100px;
+  padding: 100px 50px;
   text-align: center;
 }
+
+div#guitar_neck
+{
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  width: 100%;
+  height: 230px;
+
+  margin-top: -150px;
+
+  background-color: #EED195;
+}
+
+div#guitar_neck div.frets {
+  height: 100%;
+}
+
+div#guitar_neck div.frets div.nut    { left: 0px   }
+div#guitar_neck div.frets div.fret1  { left: 7.3%  }
+div#guitar_neck div.frets div.fret2  { left: 14.4% }
+div#guitar_neck div.frets div.fret3  { left: 21.0% }
+div#guitar_neck div.frets div.fret4  { left: 27.3% }
+div#guitar_neck div.frets div.fret5  { left: 33.2% }
+div#guitar_neck div.frets div.fret6  { left: 38.7% }
+div#guitar_neck div.frets div.fret7  { left: 44.0% }
+div#guitar_neck div.frets div.fret8  { left: 49.1% }
+div#guitar_neck div.frets div.fret9  { left: 53.8% }
+div#guitar_neck div.frets div.fret10 { left: 58.1% }
+div#guitar_neck div.frets div.fret11 { left: 62.4% }
+div#guitar_neck div.frets div.fret12 { left: 66.3% }
+div#guitar_neck div.frets div.fret13 { left: 70.0% }
+div#guitar_neck div.frets div.fret14 { left: 73.4% }
+div#guitar_neck div.frets div.fret15 { left: 76.9% }
+div#guitar_neck div.frets div.fret16 { left: 80.0% }
+div#guitar_neck div.frets div.fret17 { left: 83.0% }
+div#guitar_neck div.frets div.fret18 { left: 85.7% }
+div#guitar_neck div.frets div.fret19 { left: 88.3% }
+div#guitar_neck div.frets div.fret20 { left: 90.8% }
+div#guitar_neck div.frets div.fret21 { left: 93.2% }
+div#guitar_neck div.frets div.fret22 { left: 95.5% }
+
+div#guitar_neck div.frets div.fret {
+  position: absolute;
+  overflow: visible;
+
+  width: 8px;
+  height: 100%;
+
+  background-color: #999;
+
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #888;
+}
+
+div#guitar_neck div.frets div.fret.nut {
+  width: 12px;
+
+  background-color: #FFFFE5;
+
+  border-right: 2px solid #DEC185;
+}
+
+div#guitar_neck div.fretMarkers div.marker {
+  position: absolute;
+  overflow: visible;
+
+  top: 50%;
+
+  width: 20px;
+  height: 20px;
+
+  margin-top: -7px;
+  margin-left: -7px;
+
+  background-color: #FEF1D5;
+
+  border-radius: 10px;
+}
+
+div#guitar_neck div.fretMarkers div.marker.fret3   { left: 17.7%; }
+div#guitar_neck div.fretMarkers div.marker.fret5   { left: 30.3%; }
+div#guitar_neck div.fretMarkers div.marker.fret7   { left: 41.4%; }
+div#guitar_neck div.fretMarkers div.marker.fret9   { left: 51.5%; }
+div#guitar_neck div.fretMarkers div.marker.fret12a { left: 64.5%; top: 32.0%; }
+div#guitar_neck div.fretMarkers div.marker.fret12b { left: 64.5%; top: 68.0%; }
+div#guitar_neck div.fretMarkers div.marker.fret15  { left: 75.2%; }
+div#guitar_neck div.fretMarkers div.marker.fret17  { left: 81.6%; }
+div#guitar_neck div.fretMarkers div.marker.fret19  { left: 87.1%; }
+div#guitar_neck div.fretMarkers div.marker.fret21  { left: 92.1%; }
+
+div#guitar_neck div.strings div.string1 { top: 5%; }
+div#guitar_neck div.strings div.string2 { top: 23%; }
+div#guitar_neck div.strings div.string3 { top: 41%; }
+div#guitar_neck div.strings div.string4 { top: 59%; }
+div#guitar_neck div.strings div.string5 { top: 77%; }
+div#guitar_neck div.strings div.string6 { top: 95%; }
+
+div#guitar_neck div.strings div.string
+{
+  position: absolute;
+  overflow: visible;
+
+  width: 100%;
+  height: 3px;
+
+  padding: 0 20px;
+
+  text-align: center;
+
+  background-color: #888;
+
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #666;
+
+  box-shadow: 0 2px 3px -1px rgba(0, 0, 0, .4);
+}
+
+div#guitar_neck div.strings div.string.active
+{
+  height: 4px;
+
+  background-color: #F00;
+
+  border-top-color: #FCC;
+  border-bottom-color: #A00;
+}
+
+div#guitar_neck div.strings div.string span.note
+{
+  display: block;
+  position: absolute;
+  top: -12px;
+
+  width: 24px;
+  height: 24px;
+
+  margin-left: -11px;
+
+  background-color: #F00;
+
+  border-radius: 24px;
+
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 1);
+}
+
+div#guitar_neck div.strings div.string span.note.highlight {
+  background-color: #88F;
+}
+
+div#guitar_neck div.strings div.string span.note.fret0  { left: 0.5%;  }
+div#guitar_neck div.strings div.string span.note.fret1  { left: 3.8%;  }
+div#guitar_neck div.strings div.string span.note.fret2  { left: 10.9%; }
+div#guitar_neck div.strings div.string span.note.fret3  { left: 17.8%; }
+div#guitar_neck div.strings div.string span.note.fret4  { left: 24.4%; }
+div#guitar_neck div.strings div.string span.note.fret5  { left: 30.4%; }
+div#guitar_neck div.strings div.string span.note.fret6  { left: 36.2%; }
+div#guitar_neck div.strings div.string span.note.fret7  { left: 41.5%; }
+div#guitar_neck div.strings div.string span.note.fret8  { left: 46.8%; }
+div#guitar_neck div.strings div.string span.note.fret9  { left: 51.7%; }
+div#guitar_neck div.strings div.string span.note.fret10 { left: 56.2%; }
+div#guitar_neck div.strings div.string span.note.fret11 { left: 60.5%; }
+div#guitar_neck div.strings div.string span.note.fret12 { left: 64.6%; }
+div#guitar_neck div.strings div.string span.note.fret13 { left: 68.4%; }
+div#guitar_neck div.strings div.string span.note.fret14 { left: 71.9%; }
+div#guitar_neck div.strings div.string span.note.fret15 { left: 75.4%; }
+div#guitar_neck div.strings div.string span.note.fret16 { left: 78.7%; }
+div#guitar_neck div.strings div.string span.note.fret17 { left: 81.8%; }
+div#guitar_neck div.strings div.string span.note.fret18 { left: 84.6%; }
+div#guitar_neck div.strings div.string span.note.fret19 { left: 87.3%; }
+div#guitar_neck div.strings div.string span.note.fret20 { left: 89.8%; }
+div#guitar_neck div.strings div.string span.note.fret21 { left: 92.3%; }
+div#guitar_neck div.strings div.string span.note.fret22 { left: 94.6%; }

@@ -4,6 +4,7 @@ $(document).ready(function(){
 
 var FLATS    = ['Bb', 'Db', 'Eb', 'Gb', 'Ab'];
 var NATURALS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+// var NATURALS = ['1', '2', '3', '4', '5', '6', '7'];
 var SHARPS   = ['A#', 'C#', 'D#', 'F#', 'G#'];
 
 var App = {
@@ -28,7 +29,6 @@ var App = {
   cacheSelectors: function(){
     this.dom = {
       document:    $(document),
-      main:        $('#main'),
       note:        $('#note'),
       tool_flats:  $('#tool_flats'),
       tool_sharps: $('#tool_sharps')
