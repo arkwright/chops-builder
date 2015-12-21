@@ -187,7 +187,7 @@ div#guitar_neck div.strings div.string span.note
 }
 
 div#guitar_neck div.strings div.string span.note.highlight {
-  background-color: #88F;
+  border: 3px solid #000;
 }
 
 div#guitar_neck div.strings div.string span.note.fret0  { left: 0.5%;  }
