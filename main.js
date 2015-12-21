@@ -2,22 +2,16 @@ $(document).ready(function(){
   App.init();
 });
 
-var ENHARMONICS = {
-  'A#': 'Bb',
-  'B':  'Cb',
-  'C#': 'Db',
-  'D#': 'Eb',
-  'E':  'Fb',
-  'F#': 'Gb',
-  'G#': 'Ab'
-};
-var NOTES = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
+var FLATS    = ['Bb', 'Db', 'Eb', 'Gb', 'Ab'];
+var NATURALS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+var SHARPS   = ['A#', 'C#', 'D#', 'F#', 'G#'];
 
 var App = {
   dom: {},
   state: {
-    note: NOTES[0],
-    useEnharmonics: false
+    note: NATURALS[0],
+    useFlats: false,
+    useSharps: false
   },
 
   advance: function() {
@@ -27,20 +21,32 @@ var App = {
 
   bindListeners: function(){
     this.dom.document.on('keypress', this.advance.bind(this));
-    this.dom.tool_enharmonics.on('click', this.toggleOptionEnharmonics.bind(this));
+    this.dom.tool_flats.on('click', this.toggleOptionFlats.bind(this));
+    this.dom.tool_sharps.on('click', this.toggleOptionSharps.bind(this));
   },
 
   cacheSelectors: function(){
     this.dom = {
-      document:         $(document),
-      main:             $('#main'),
-      note:             $('#note'),
-      tool_enharmonics: $('#tool_enharmonics')
+      document:    $(document),
+      main:        $('#main'),
+      note:        $('#note'),
+      tool_flats:  $('#tool_flats'),
+      tool_sharps: $('#tool_sharps')
     }
   },
 
   getRandomNote: function() {
-    return NOTES[_.random(0, NOTES.length - 1)];
+    var notes = NATURALS;
+
+    if (this.state.useSharps) {
+      notes = notes.concat(SHARPS);
+    }
+
+    if (this.state.useFlats) {
+      notes = notes.concat(FLATS);
+    }
+
+    return notes[_.random(0, notes.length - 1)];
   },
 
   init: function() {
@@ -52,31 +58,26 @@ var App = {
 
   render: function() {
     this.dom.note.html(this.state.note);
-    this.dom.tool_enharmonics.toggleClass('active', this.state.useEnharmonics);
+    this.dom.tool_flats.toggleClass('active', this.state.useFlats);
+    this.dom.tool_sharps.toggleClass('active', this.state.useSharps);
   },
 
-  toggleOptionEnharmonics: function() {
-    this.state.useEnharmonics = !this.state.useEnharmonics;
+  toggleOptionFlats: function() {
+    this.state.useFlats = !this.state.useFlats;
+    this.render();
+  },
+
+  toggleOptionSharps: function() {
+    this.state.useSharps = !this.state.useSharps;
     this.render();
   },
 
   selectNextNote: function() {
-    console.log('---');
     var nextNote;
-    var enharmonic;
-    var randomNote;
 
     do {
-      randomNote = this.getRandomNote();
-      enharmonic = ENHARMONICS[randomNote] || randomNote;
-
-      if (this.state.useEnharmonics) {
-        nextNote = _.random(0, 1) === 0 ? randomNote : enharmonic;
-      } else {
-        nextNote = randomNote;
-      }
-      console.log('random', randomNote, 'enharmonic', enharmonic, 'next', nextNote, 'state', this.state.note);
-    } while (randomNote === this.state.note || enharmonic === this.state.note);
+      nextNote = this.getRandomNote();
+    } while (nextNote === this.state.note);
 
     this.state.note = nextNote;
   }
