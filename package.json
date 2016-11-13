@@ -1,9 +1,16 @@
 {
   "name": "chops-builder",
   "version": "0.0.1",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack",
+    "start": "./node_modules/.bin/webpack-dev-server"
+  },
   "dependencies": {
     "jquery": "^2.1.4",
     "lodash": "^3.10.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
 }
