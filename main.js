@@ -2,6 +2,8 @@ $(document).ready(function(){
   App.init();
 });
 
+var ONE_MINUTE_MS = 60 * 1000;
+
 var STRINGS = 6;
 var FRETS   = 22;
 
@@ -33,6 +35,7 @@ var NOTE_RENDER_STATE = {
 var App = {
   dom: {},
   state: {
+    bpmInterval: null,
     mode: 'neck',
     neckNotes: null,
     neckPattern: 'natural_minor',
@@ -43,24 +46,16 @@ var App = {
     useSharps: false
   },
 
-  keypress: function() {
-    switch (this.state.mode) {
-      case 'note':
-        this.selectNextNote();
-        break;
-      case 'neck':
-        this.selectNextPatternDegree();
-        break;
-    }
-
-    this.render();
-  },
-
   bindListeners: function(){
     this.dom.document.on('keypress', this.keypress.bind(this));
+    this.dom.speed.on('change', this.changeOptionSpeed.bind(this));
     this.dom.tool_flats.on('click', this.toggleOptionFlats.bind(this));
     this.dom.tool_mode.on('click', this.toggleOptionMode.bind(this));
     this.dom.tool_sharps.on('click', this.toggleOptionSharps.bind(this));
+  },
+
+  bpmTick: function(){
+    this.selectNext();
   },
 
   cacheSelectors: function(){
@@ -68,10 +63,20 @@ var App = {
       document:    $(document),
       guitar_neck: $('#guitar_neck'),
       note:        $('#note'),
+      speed:       $('#speed'),
       tool_flats:  $('#tool_flats'),
       tool_mode:   $('#tool_mode'),
       tool_sharps: $('#tool_sharps')
     }
+  },
+
+  changeOptionSpeed: function() {
+    this.setBpmIntervalSpeed(this.dom.speed.val());
+    this.render();
+  },
+
+  clearBpmInterval: function() {
+    clearInterval(this.state.bpmInterval);
   },
 
   computeNeckPattern: function() {
@@ -130,6 +135,11 @@ var App = {
     this.render();
   },
 
+  keypress: function() {
+    this.setBpmIntervalSpeed(0);
+    this.selectNext();
+  },
+
   render: function() {
     this.dom.note.html(this.state.note);
     this.dom.tool_flats.toggleClass('active', this.state.useFlats);
@@ -138,6 +148,7 @@ var App = {
     switch (this.state.mode) {
       case 'note':
         this.dom.tool_mode.html('Neck');
+        this.dom.speed.show();
         this.dom.tool_flats.show();
         this.dom.tool_sharps.show();
         this.dom.note.show();
@@ -145,6 +156,7 @@ var App = {
         break;
       case 'neck':
         this.dom.tool_mode.html('Note');
+        this.dom.speed.hide();
         this.dom.tool_flats.hide();
         this.dom.tool_sharps.hide();
         this.dom.note.hide();
@@ -194,6 +206,19 @@ var App = {
     this.render();
   },
 
+  selectNext: function() {
+    switch (this.state.mode) {
+      case 'note':
+        this.selectNextNote();
+        break;
+      case 'neck':
+        this.selectNextPatternDegree();
+        break;
+    }
+
+    this.render();
+  },
+
   selectNextNote: function() {
     var nextNote;
 
@@ -212,5 +237,19 @@ var App = {
     } while (nextPatternDegree === this.state.patternDegree);
 
     this.state.patternDegree = nextPatternDegree;
+  },
+
+  setBpmIntervalSpeed: function(speed) {
+    if (typeof speed === 'string') {
+      speed = parseInt(speed);
+    }
+
+    this.clearBpmInterval();
+
+    if (speed <= 0) { return; }
+
+    var intervalSpeed = ONE_MINUTE_MS / speed;
+
+    this.state.bpmInterval = setInterval(this.bpmTick.bind(this), intervalSpeed);
   }
 };
