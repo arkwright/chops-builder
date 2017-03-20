@@ -23,6 +23,8 @@ div#toolbar {
   border-bottom: 1px solid #000;
 }
 
+
+div#toolbar div,
 div#toolbar a {
   display: inline-block;
   font-weight: bold;

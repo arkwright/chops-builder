@@ -35,6 +35,7 @@ var NOTE_RENDER_STATE = {
 var App = {
   dom: {},
   state: {
+    beatCount: 0,
     bpmInterval: null,
     mode: 'neck',
     neckNotes: null,
@@ -63,6 +64,7 @@ var App = {
       document:    $(document),
       guitar_neck: $('#guitar_neck'),
       note:        $('#note'),
+      beat_count:  $('#beat_count'),
       speed:       $('#speed'),
       tool_flats:  $('#tool_flats'),
       tool_mode:   $('#tool_mode'),
@@ -72,6 +74,7 @@ var App = {
 
   changeOptionSpeed: function() {
     this.setBpmIntervalSpeed(this.dom.speed.val());
+    this.resetBeatCount();
     this.render();
   },
 
@@ -142,12 +145,14 @@ var App = {
 
   render: function() {
     this.dom.note.html(this.state.note);
+    this.dom.beat_count.html(this.state.beatCount);
     this.dom.tool_flats.toggleClass('active', this.state.useFlats);
     this.dom.tool_sharps.toggleClass('active', this.state.useSharps);
 
     switch (this.state.mode) {
       case 'note':
         this.dom.tool_mode.html('Neck');
+        this.dom.beat_count.show();
         this.dom.speed.show();
         this.dom.tool_flats.show();
         this.dom.tool_sharps.show();
@@ -156,6 +161,7 @@ var App = {
         break;
       case 'neck':
         this.dom.tool_mode.html('Note');
+        this.dom.beat_count.hide();
         this.dom.speed.hide();
         this.dom.tool_flats.hide();
         this.dom.tool_sharps.hide();
@@ -191,6 +197,10 @@ var App = {
     }
   },
 
+  resetBeatCount: function() {
+    this.state.beatCount = 0;
+  },
+
   toggleOptionMode: function() {
     this.state.mode = this.state.mode === 'note' ? 'neck' : 'note';
     this.render();
@@ -215,6 +225,8 @@ var App = {
         this.selectNextPatternDegree();
         break;
     }
+
+    this.state.beatCount++;
 
     this.render();
   },
